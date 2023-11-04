@@ -1,0 +1,69 @@
+#include <iostream>
+using namespace std;
+
+const int NUM_ROWS = 5;
+const int NUM_COLS = 10;
+const double TICKET_PRICE = 10.0;
+
+int main() {
+    char seats[NUM_ROWS][NUM_COLS];
+    for (int row = 0; row < NUM_ROWS; row++) {
+        for (int col = 0; col < NUM_COLS; col++) {
+            seats[row][col] = 'O';
+        }
+    }
+
+    double totalCost = 0.0;
+
+    while (true) {
+        cout << "Movie Ticket Booking System\n";
+        cout << "1. View Seating Chart\n";
+        cout << "2. Select Seats\n";
+        cout << "3. Calculate Total Cost\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+
+        int choice;
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                for (int row = 0; row < NUM_ROWS; row++) {
+                    for (int col = 0; col < NUM_COLS; col++) {
+                        cout << seats[row][col] << ' ';
+                    }
+                    cout << endl;
+                }
+                break;
+
+            case 2:
+                int row, col;
+                cout << "Enter row (1-" << NUM_ROWS << ") and seat (1-" << NUM_COLS << ") to select: ";
+                cin >> row >> col;
+
+                if (row >= 1 && row <= NUM_ROWS && col >= 1 && col <= NUM_COLS) {
+                    if (seats[row - 1][col - 1] == 'O') {
+                        seats[row - 1][col - 1] = 'X';
+                        totalCost += TICKET_PRICE;
+                        cout << "Seat selected. Total Cost: $" << totalCost << endl;
+                    } else {
+                        cout << "Seat already taken. Please choose another seat.\n";
+                    }
+                } else {
+                    cout << "Invalid row or seat.\n";
+                }
+                break;
+
+            case 3:
+                cout << "Total Cost: $" << totalCost << endl;
+                break;
+
+            case 4:
+                cout << "Exiting the program. Thank you!\n";
+                return 0;
+
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+    }
+}
